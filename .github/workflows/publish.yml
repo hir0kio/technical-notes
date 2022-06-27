@@ -1,0 +1,25 @@
+name: Publish to GitHub Pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: yarn install --frozen-lockfile
+      - run: yarn docs:build
+      - name: Deploy
+        run: |
+          cd docs/.vitepress/dist
+          git init --initial-branch gh-pages
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add --all
+          git commit --message ${{ github.sha }}
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git push --force origin gh-pages

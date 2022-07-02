@@ -70,7 +70,8 @@ Alice が Bob との間に秘密鍵を確立し、暗号化されたメッセー
 
 以下、ステップ 2 から 5 までを繰り返す。（ただし、ステップ 2 と 3 で「Bob の前鍵」「自分の前鍵」とあるところはそれぞれ「Bob のラチェット鍵」「自分のラチェット鍵」と読み替える。）
 
-## 外部リンク
+## 参考文献
 
 - M. Marlinspike, T. Perrin (2016). "The X3DH Key Agreement Protocol". _Signal Foundation_. https://signal.org/docs/specifications/x3dh/
 - Wikipedia contributors. "Signal Protocol". _Wikipedia_. https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
+- K. Cohn-Gordon, C. Cremers, B. Dowling, L. Garratt, D. Stebila (2020). "A formal security analysis of the signal messaging protocol". _Journal of Cryptology_, 33(4), pp. 1914&ndash;1983. https://doi.org/10.1007/s00145-020-09360-1

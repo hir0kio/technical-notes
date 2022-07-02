@@ -162,4 +162,4 @@ Bob は Alice と同じ共通鍵 _ms_ を得ることができた。Bob は Alic
 
 ## 外部リンク
 
-- https://signal.org/docs/specifications/x3dh/
+- M. Marlinspike, T. Perrin (2016). "The X3DH Key Agreement Protocol". _Signal Foundation_. https://signal.org/docs/specifications/x3dh/

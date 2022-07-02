@@ -72,5 +72,5 @@ Alice が Bob との間に秘密鍵を確立し、暗号化されたメッセー
 
 ## 外部リンク
 
-- https://signal.org/docs/specifications/doubleratchet/
-- https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
+- M. Marlinspike, T. Perrin (2016). "The X3DH Key Agreement Protocol". _Signal Foundation_. https://signal.org/docs/specifications/x3dh/
+- Wikipedia contributors. "Signal Protocol". _Wikipedia_. https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm

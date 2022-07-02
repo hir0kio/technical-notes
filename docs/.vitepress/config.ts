@@ -25,10 +25,6 @@ export default defineConfig({
         link: "/",
       },
       {
-        text: "著者",
-        link: "https://github.com/hir0kio",
-      },
-      {
         text: "編集履歴",
         link: "https://github.com/hir0kio/technical-notes/commits/main",
       },
@@ -66,6 +62,12 @@ export default defineConfig({
         },
       ],
     },
+    socialLinks: [
+      {
+        icon: "github",
+        link: "https://github.com/hir0kio",
+      },
+    ],
   },
   title: "Technical Notes",
   titleTemplate: false,

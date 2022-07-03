@@ -97,15 +97,19 @@ Alice は、Bob の前鍵バンドルに含まれる前鍵の電子署名を検�
 
 次に、Alice は以下の [ECDH 鍵共有](https://ja.wikipedia.org/wiki/楕円曲線ディフィー・ヘルマン鍵共有)を行う。
 
-        DH1 = ECDH(Alice の永続鍵, Bob の前鍵の公開鍵)
-        DH2 = ECDH(Alice の一時鍵, Bob の永続鍵の公開鍵)
-        DH3 = ECDH(Alice の一時鍵, Bob の前鍵の公開鍵)
-        ms = KDF(DH1 || DH2 || DH3)
+```
+DH1 = ECDH(Alice の永続鍵, Bob の前鍵の公開鍵)
+DH2 = ECDH(Alice の一時鍵, Bob の永続鍵の公開鍵)
+DH3 = ECDH(Alice の一時鍵, Bob の前鍵の公開鍵)
+ms = KDF(DH1 || DH2 || DH3)
+```
 
 Bob の前鍵バンドルに一時前鍵が含まれている場合は、以下を実行する。
 
-        DH4 = ECDH(Alice の一時鍵, Bob の一時前鍵の公開鍵)
-        ms = KDF(DH1 || DH2 || DH3 || DH4)
+```
+DH4 = ECDH(Alice の一時鍵, Bob の一時前鍵の公開鍵)
+ms = KDF(DH1 || DH2 || DH3 || DH4)
+```
 
 _DH1_ と _DH2_ は相互認証を提供し、_DH3_ と _DH4_ は前方秘匿性を提供する。つまり、Alice と Bob の永続鍵を持たない第三者は _DH1_ と _DH2_ を導出できず、将来永続鍵が危殆化した場合でも使われた前鍵と一時鍵が削除されたあとは _DH3_ と _DH4_ を導出できない。
 
@@ -121,15 +125,19 @@ _DH1_ と _DH2_ は相互認証を提供し、_DH3_ と _DH4_ は前方秘匿性
 
 Alice のメッセージを受け取った Bob は、以下の ECDH 鍵共有を行う。
 
-        DH1 = ECDH(Bob の前鍵、Alice の永続鍵の公開鍵)
-        DH2 = ECDH(Bob の永続鍵, Alice の一時鍵の公開鍵)
-        DH3 = ECDH(Bob の前鍵, Alice の一時鍵の公開鍵)
-        ms = KDF(DH1 || DH2 || DH3)
+```
+DH1 = ECDH(Bob の前鍵、Alice の永続鍵の公開鍵)
+DH2 = ECDH(Bob の永続鍵, Alice の一時鍵の公開鍵)
+DH3 = ECDH(Bob の前鍵, Alice の一時鍵の公開鍵)
+ms = KDF(DH1 || DH2 || DH3)
+```
 
 Alice のメッセージに Alice が使った Bob の一時前鍵が記載されている場合は、以下を実行し、前方秘匿性のためその一時前鍵をデバイスから削除する。
 
-        DH4 = ECDH(Bob の一時前鍵, Alice の一時鍵の公開鍵)
-        ms = KDF(DH1 || DH2 || DH3 || DH4)
+```
+DH4 = ECDH(Bob の一時前鍵, Alice の一時鍵の公開鍵)
+ms = KDF(DH1 || DH2 || DH3 || DH4)
+```
 
 Bob は Alice と同じ共通鍵 _ms_ を得ることができた。Bob は Alice のメッセージを復号し、Alice と同じ共通鍵を得られたことを確認する。
 

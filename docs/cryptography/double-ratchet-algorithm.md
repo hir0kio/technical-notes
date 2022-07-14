@@ -8,11 +8,15 @@ description: あらかじめ合意した共通鍵を使って、二者間で暗�
 
 ## 特徴
 
-### [前方秘匿性](https://ja.wikipedia.org/wiki/Forward_secrecy)
+### 前方秘匿性
+
+詳細はウィキペディアの「[Forward secrecy](https://ja.wikipedia.org/wiki/Forward_secrecy)」を参照
 
 将来のある時点で鍵が危殆化しても、第三者は過去の通信をさかのぼって復号することができない。
 
-### [post-compromise security](/cryptography/post-compromise-security)
+### post-compromise security
+
+詳細は「[Post-compromise security](/cryptography/post-compromise-security)」を参照
 
 将来のある時点で鍵が危殆化 compromise しても、その鍵はすぐに正常な鍵と置き換えられ、第三者はそれ以降の通信を復号することができない。
 

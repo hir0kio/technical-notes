@@ -16,11 +16,15 @@ description: 相手がオフラインの環境で、二者間で非同期に共�
 
 当事者が自分の永続鍵を持っていることが暗号学的に保証される。
 
-### [否認可能性](https://en.wikipedia.org/wiki/Plausible_deniability)
+### 否認可能性
+
+詳細は英語版ウィキペディアの「[Plausible deniability](https://en.wikipedia.org/wiki/Plausible_deniability)」を参照
 
 第三者は誰と誰が通信したかや通信の内容についての暗号学的証明を得られない。
 
-### [前方秘匿性](https://ja.wikipedia.org/wiki/Forward_secrecy)
+### 前方秘匿性
+
+詳細はウィキペディアの「[Forward secrecy](https://ja.wikipedia.org/wiki/Forward_secrecy)」を参照
 
 永続鍵が将来危殆化した場合でも、第三者は過去に確立した共通鍵を復元できない。
 

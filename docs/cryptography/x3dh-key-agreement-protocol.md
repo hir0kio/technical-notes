@@ -24,35 +24,37 @@ description: 相手がオフラインの環境で、二者間で非同期に共�
 
 永続鍵が将来危殆化した場合でも、第三者は過去に確立した共通鍵を復元できない。
 
+## 用語
+
+仕様書に登場する独自の用語にそれぞれ次の訳語を与えた。
+
+| 原語             | 訳語         |
+| ---------------- | ------------ |
+| ephemeral key    | 一時鍵       |
+| ephemeral prekey | 一時前鍵     |
+| identity key     | 永続鍵       |
+| prekey           | 前鍵         |
+| prekey bundle    | 前鍵バンドル |
+
 ## 定義
 
-### 永続鍵
+### 一時鍵
 
-identity key
+鍵共有を開始する者 initiator が鍵合意セッションごとに作成する使い捨ての鍵。前方秘匿性のため、initiator は共通鍵が導出できしだい一時鍵の秘密鍵をデバイスから削除する。
+
+### 一時前鍵
+
+鍵共有ごとに消費される使い捨ての鍵。
+
+### 永続鍵
 
 自分の本人性 identity を証明するための鍵。
 
 ### 前鍵
 
-prekey
-
-前もってサーバに公開しておく鍵。鍵合意後に [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)で最初のルート鍵 root key として使う。
-
-### 一時前鍵
-
-ephemeral prekey
-
-鍵共有ごとに消費される使い捨ての鍵。
-
-### 一時鍵
-
-ephemeral key
-
-鍵共有を開始する者 initiator が鍵合意セッションごとに作成する使い捨ての鍵。前方秘匿性のため、initiator は共通鍵が導出できしだい一時鍵の秘密鍵をデバイスから削除する。
+前もってサーバに公開しておく鍵。鍵合意後に [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)で最初の[ルート鍵](/cryptography/double-ratchet-algorithm#用語)として使う。
 
 ### 前鍵バンドル
-
-prekey bundle
 
 鍵共有を開始する際にサーバから受け取るデータ。以下が含まれる。
 
@@ -143,7 +145,7 @@ Bob は Alice と同じ共通鍵 _ms_ を得ることができた。Bob は Alic
 
 ### 鍵の合意後
 
-共通鍵を確立したあとは、この鍵を使って共通鍵暗号で通信することもできるが、前方秘匿性や [post-compromise security](/cryptography/post-compromise-security) を保証する [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)を使うことが強く推奨される。
+共通鍵を確立したあとは、この鍵を使って共通鍵暗号方式で通信することもできるが、前方秘匿性や [post-compromise security](/cryptography/post-compromise-security) を保証する [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)を使うことが推奨される。
 
 ## 補足事項
 

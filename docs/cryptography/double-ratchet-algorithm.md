@@ -16,22 +16,35 @@ description: あらかじめ合意した共通鍵を使って、二者間で暗�
 
 将来のある時点で鍵が危殆化 compromise しても、その鍵はすぐに正常な鍵と置き換えられ、第三者はそれ以降の通信を復号することができない。
 
+## 用語
+
+仕様書に登場する独自の用語にそれぞれ次の訳語を与えた。
+
+| 原語                | 訳語           |
+| ------------------- | -------------- |
+| DH output           | DH 出力        |
+| message key         | メッセージ鍵   |
+| ratchet key         | ラチェット鍵   |
+| receiving chain key | 受信チェーン鍵 |
+| root key            | ルート鍵       |
+| sending chain key   | 送信チェーン鍵 |
+
 ## 手順
 
 Alice が Bob との間に秘密鍵を確立し、暗号化されたメッセージを送受信する例を解説する。
 
 ### ステップ 1: ルート鍵の合意
 
-1. Alice と Bob は [X3DH 鍵合意プロトコル](/cryptography/x3dh-key-agreement-protocol)を使って共通鍵を確立する。この共通鍵を最初のルート鍵 root key として使う。
+1. Alice と Bob は [X3DH 鍵合意プロトコル](/cryptography/x3dh-key-agreement-protocol)を使って共通鍵を確立する。この共通鍵を最初のルート鍵として使う。
 
 前方秘匿性のため、最初のルート鍵はそれぞれのセッションごとに固有である必要がある。
 
 ### ステップ 2: Alice から Bob へメッセージの送信
 
-1. Alice は [ECC](https://ja.wikipedia.org/wiki/楕円曲線暗号) ラチェット鍵 ratchet key ペアを作成する。
+1. Alice は [ECC](https://ja.wikipedia.org/wiki/楕円曲線暗号) ラチェット鍵ペアを作成する。
 2. Alice は自分のラチェット鍵と Bob の[前鍵](/cryptography/x3dh-key-agreement-protocol#前鍵)で [ECDH 鍵共有](https://ja.wikipedia.org/wiki/楕円曲線ディフィー・ヘルマン鍵共有)を行い、DH 出力を得る。
-3. Alice は ルート鍵と DH 出力を [HKDF](https://en.wikipedia.org/wiki/HKDF) に入力し、新しいルート鍵と送信チェーン鍵 sending chain key を得る。
-4. Alice は送信チェーン鍵を HKDF に入力し、新しい送信チェーン鍵とメッセージ鍵 message key を得る。
+3. Alice は ルート鍵と DH 出力を [HKDF](https://en.wikipedia.org/wiki/HKDF) に入力し、新しいルート鍵と送信チェーン鍵を得る。
+4. Alice は送信チェーン鍵を HKDF に入力し、新しい送信チェーン鍵とメッセージ鍵を得る。
 5. Alice はメッセージ鍵で自分のメッセージを暗号化する。
 6. Alice は暗号化されたメッセージと自分のラチェット鍵を Bob に送信する。
 7. さらにメッセージを送る場合は、ステップ 2.4 から 2.6 までを繰り返す。
@@ -42,7 +55,7 @@ Alice が Bob との間に秘密鍵を確立し、暗号化されたメッセー
 
 1. Bob は Alice の暗号化されたメッセージとラチェット鍵を受け取る。
 2. Bob は自分の前鍵と Alice のラチェット鍵で ECDH 鍵共有を行い、DH 出力を得る。
-3. Bob はルート鍵と DH 出力を HKDF に入力し、新しいルート鍵と受信チェーン鍵 receiving chain key を得る。
+3. Bob はルート鍵と DH 出力を HKDF に入力し、新しいルート鍵と受信チェーン鍵を得る。
 4. Bob は受信チェーン鍵を HKDF に入力し、新しい受信チェーン鍵とメッセージ鍵を得る。
 5. Bob はメッセージ鍵で Alice のメッセージを復号する。
 6. Bob は Alice のすべてのメッセージを復号するまでステップ 3.4 から 3.5 までを繰り返す。

@@ -18,7 +18,7 @@ description: 相手がオフラインの環境で、二者間で非同期に共�
 
 ### 否認可能性
 
-詳細は英語版ウィキペディアの「[Plausible deniability](https://en.wikipedia.org/wiki/Plausible_deniability)」を参照
+詳細は英語版ウィキペディアの「[Plausible deniability#Use in cryptography](https://en.wikipedia.org/wiki/Plausible_deniability#Use_in_cryptography)」を参照
 
 第三者は誰と誰が通信したかや通信の内容についての暗号学的証明を得られない。
 

@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 export default defineConfig({
   base: "/technical-notes/",
-  description: "暗号理論に関するメモを公開しています。",
+  description: "暗号理論に関するノートを公開しています。",
   head: [
     [
       "link",

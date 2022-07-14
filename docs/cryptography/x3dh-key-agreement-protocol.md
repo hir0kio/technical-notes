@@ -170,5 +170,5 @@ Bob は Alice と同じ共通鍵 _ms_ を得ることができた。Bob は Alic
 
 ## 参考文献
 
-- M. Marlinspike, T. Perrin (2016). "The X3DH Key Agreement Protocol". _Signal Foundation_. https://signal.org/docs/specifications/x3dh/
-- K. Cohn-Gordon, C. Cremers, B. Dowling, L. Garratt, D. Stebila (2020). "A formal security analysis of the signal messaging protocol". _Journal of Cryptology_, 33(4), pp. 1914&ndash;1983. https://doi.org/10.1007/s00145-020-09360-1
+- M. Marlinspike, T. Perrin (2016). "The X3DH Key Agreement Protocol". _Signal Foundation_. <span class="url">https://signal.org/docs/specifications/x3dh/</span>
+- K. Cohn-Gordon, C. Cremers, B. Dowling, L. Garratt, D. Stebila (2020). "A formal security analysis of the signal messaging protocol". _Journal of Cryptology_, 33(4), pp. 1914&ndash;1983. <span class="url">https://doi.org/10.1007/s00145-020-09360-1</span>

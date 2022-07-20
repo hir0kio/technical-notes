@@ -5,7 +5,7 @@
     "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
-    "@algolia/client-search": "^4.14.0",
+    "@algolia/client-search": "^4.14.1",
     "@types/react": "^18.0.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

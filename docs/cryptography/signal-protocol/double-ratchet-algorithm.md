@@ -1,16 +1,16 @@
 ---
-description: あらかじめ合意した共通鍵を使って、二者間で暗号化されたメッセージを送受信するためのアルゴリズム。
+description: あらかじめ共有した共通鍵を使って安全にメッセージを暗号化し送受信するためのアルゴリズム。
 ---
 
 # Double Ratchet アルゴリズム
 
-あらかじめ合意した共通鍵を使って、二者間で暗号化されたメッセージを送受信するためのアルゴリズム。
+あらかじめ共有した共通鍵を使って安全にメッセージを暗号化し送受信するためのアルゴリズム。
 
 ## 特徴
 
 ### 前方秘匿性
 
-詳細はウィキペディアの「[Forward secrecy](https://ja.wikipedia.org/wiki/Forward_secrecy)」を参照
+詳細は「[Forward secrecy](https://ja.wikipedia.org/wiki/Forward_secrecy)」を参照
 
 将来のある時点で鍵が危殆化しても、第三者は過去の通信をさかのぼって復号することができない。
 
@@ -39,14 +39,14 @@ Alice が Bob との間に秘密鍵を確立し、暗号化されたメッセー
 
 ### ステップ 1: ルート鍵の合意
 
-1. Alice と Bob は [X3DH 鍵合意プロトコル](/cryptography/x3dh-key-agreement-protocol)を使って共通鍵を確立する。この共通鍵を最初のルート鍵として使う。
+1. Alice と Bob は [X3DH 鍵合意プロトコル](/cryptography/signal-protocol/x3dh-key-agreement-protocol)を使って共通鍵を確立する。この共通鍵を最初のルート鍵として使う。
 
 前方秘匿性のため、最初のルート鍵はそれぞれのセッションごとに固有である必要がある。
 
 ### ステップ 2: Alice から Bob へメッセージの送信
 
 1. Alice は [ECC](https://ja.wikipedia.org/wiki/楕円曲線暗号) ラチェット鍵ペアを作成する。
-2. Alice は自分のラチェット鍵と Bob の[前鍵](/cryptography/x3dh-key-agreement-protocol#前鍵)で [ECDH 鍵共有](https://ja.wikipedia.org/wiki/楕円曲線ディフィー・ヘルマン鍵共有)を行い、DH 出力を得る。
+2. Alice は自分のラチェット鍵と Bob の[前鍵](/cryptography/signal-protocol/x3dh-key-agreement-protocol#前鍵)で [ECDH 鍵共有](https://ja.wikipedia.org/wiki/楕円曲線ディフィー・ヘルマン鍵共有)を行い、DH 出力を得る。
 3. Alice は ルート鍵と DH 出力を [HKDF](https://en.wikipedia.org/wiki/HKDF) に入力し、新しいルート鍵と送信チェーン鍵を得る。
 4. Alice は送信チェーン鍵を HKDF に入力し、新しい送信チェーン鍵とメッセージ鍵を得る。
 5. Alice はメッセージ鍵で自分のメッセージを暗号化する。
@@ -89,6 +89,6 @@ Alice が Bob との間に秘密鍵を確立し、暗号化されたメッセー
 
 ## 参考文献
 
-- M. Marlinspike, T. Perrin (2016). "The Double Ratchet Algorithm". _Signal Foundation_. https://signal.org/docs/specifications/doubleratchet/
-- Wikipedia contributors. "Double Ratchet Algorithm". _Wikipedia_. https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
+- M. Marlinspike, T. Perrin (2016). "The double ratchet algorithm". _Signal Foundation_. https://signal.org/docs/specifications/doubleratchet/
+- Wikipedia contributors. "Double ratchet algorithm". _Wikipedia_. https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
 - K. Cohn-Gordon, C. Cremers, B. Dowling, L. Garratt, D. Stebila (2020). "A formal security analysis of the signal messaging protocol". _Journal of Cryptology_, 33(4), pp. 1914&ndash;1983. https://doi.org/10.1007/s00145-020-09360-1

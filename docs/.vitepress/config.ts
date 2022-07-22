@@ -34,14 +34,29 @@ export default defineConfig({
       },
     ],
     sidebar: {
+      "/cryptography/signal-protocol/": [
+        {
+          text: "Signal プロトコル",
+          items: [
+            {
+              text: "概要",
+              link: "/cryptography/signal-protocol/",
+            },
+            {
+              text: "Double Ratchet アルゴリズム",
+              link: "/cryptography/signal-protocol/double-ratchet-algorithm",
+            },
+            {
+              text: "X3DH 鍵合意プロトコル",
+              link: "/cryptography/signal-protocol/x3dh-key-agreement-protocol",
+            },
+          ],
+        },
+      ],
       "/": [
         {
           text: "暗号理論",
           items: [
-            {
-              text: "Double Ratchet アルゴリズム",
-              link: "/cryptography/double-ratchet-algorithm",
-            },
             {
               text: "Post-compromise security",
               link: "/cryptography/post-compromise-security",
@@ -51,8 +66,8 @@ export default defineConfig({
               link: "/cryptography/puncturable-encryption",
             },
             {
-              text: "X3DH 鍵合意プロトコル",
-              link: "/cryptography/x3dh-key-agreement-protocol",
+              text: "Signal プロトコル",
+              link: "/cryptography/signal-protocol/",
             },
             {
               text: "落とし戸付き一方向性関数",
@@ -70,5 +85,4 @@ export default defineConfig({
     ],
   },
   title: "Technical Notes",
-  titleTemplate: false,
 });

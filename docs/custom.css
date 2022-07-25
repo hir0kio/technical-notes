@@ -1,3 +1,8 @@
 * {
   overflow-wrap: break-word;
 }
+
+sub,
+sup {
+  line-height: 1;
+}

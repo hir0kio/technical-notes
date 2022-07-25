@@ -12,13 +12,13 @@ description: あらかじめ共有した共通鍵を使って安全にメッセ�
 
 鍵ペア<sub>0</sub>の秘密鍵と鍵ペア<sub>1</sub>の公開鍵で[楕円曲線ディフィー・ヘルマン鍵共有](https://ja.wikipedia.org/wiki/楕円曲線ディフィー・ヘルマン鍵共有)を行って得られる秘密の値。
 
-### HKDF(in<sub>0</sub>, in<sub>1</sub>, in<sub>2</sub>, ......)
+### HKDF(km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>, ......)
 
-1 個以上の値 in<sub>0</sub>, in<sub>1</sub>, in<sub>2</sub>, ...... を HMAC-based key derivation function（HKDF）に入力して得られる 1 個以上の対称鍵。
+1 個以上の[キー マテリアル](https://csrc.nist.gov/glossary/term/keying_material) km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>, ...... を [HMAC-based extract-then-expand key derivation function](https://datatracker.ietf.org/doc/html/rfc5869)（HKDF）に入力して得られる 1 個以上の対称鍵。
 
-対称鍵 &larr; HKDF(in)<br />
-対称鍵 &larr; HKDF(in<sub>0</sub>, in<sub>1</sub>, in<sub>2</sub>)<br />
-対称鍵<sub>0</sub>, 対称鍵<sub>1</sub>, 対称鍵<sub>2</sub> &larr; HKDF(in<sub>0</sub>, in<sub>1</sub>, in<sub>2</sub>)
+対称鍵 &larr; HKDF(km)<br />
+対称鍵 &larr; HKDF(km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>)<br />
+対称鍵<sub>0</sub>, 対称鍵<sub>1</sub>, 対称鍵<sub>2</sub> &larr; HKDF(km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>)
 
 ### 非対称ラチェット
 
@@ -52,11 +52,11 @@ DH output
 
 symmetric ratchet
 
-n 番目のチェーン鍵（と任意の入力）を受け取って、n+1 番目のチェーン鍵と 1 個以上の対称鍵を出力する暗号学的チェーン。
+n 番目のチェーン鍵（と任意の[キー マテリアル](https://csrc.nist.gov/glossary/term/keying_material)）を受け取って、n+1 番目のチェーン鍵と 1 個以上の対称鍵を出力する暗号学的チェーン。
 
 チェーン鍵<sub>k+1</sub>, 対称鍵 &larr; HKDF(チェーン鍵<sub>k</sub>)<br />
-チェーン鍵<sub>l+1</sub>, 対称鍵 &larr; HKDF(チェーン鍵<sub>l</sub>, 任意の入力)<br />
-チェーン鍵<sub>m+1</sub>, 対称鍵<sub>0</sub>, 対称鍵<sub>1</sub>, 対称鍵<sub>2</sub> &larr; HKDF(チェーン鍵<sub>m</sub>, 任意の入力)
+チェーン鍵<sub>l+1</sub>, 対称鍵 &larr; HKDF(チェーン鍵<sub>l</sub>, キー マテリアル)<br />
+チェーン鍵<sub>m+1</sub>, 対称鍵<sub>0</sub>, 対称鍵<sub>1</sub>, 対称鍵<sub>2</sub> &larr; HKDF(チェーン鍵<sub>m</sub>, キー マテリアル)
 
 対称ラチェットは進行方向にしか操作できない。つまり、一度対称ラチェットを更新して古いチェーン鍵を削除すると、古いチェーン鍵から導出した対称鍵を得ることはできない。
 
@@ -111,7 +111,7 @@ message key
 ### 役割
 
 - **Alice**（イニシエーター）は、Bob との間に共通鍵を確立し、Double Ratchet アルゴリズムを使って Bob にメッセージを送る。ただし、メッセージを送るとき、Bob はオフラインである場合がある。
-- **Bob**（レスポンダー）は、Alice からのメッセージを受け取って Alice に応答を送る。ただし、応答を送るとき、Alice はオフラインである場合がある。
+- **Bob**（レスポンダー）は、Alice からのメッセージを受け取って Alice に返信する。ただし、返信を送るとき、Alice はオフラインである場合がある。
 - **サーバ**は Alice と Bob の通信を中継する。Alice と Bob が相手に送ったデータを一時的に保持し、対象者がオンラインに復帰するとこのデータを配送する。
 
 ### 1. ルート鍵の共有
@@ -160,7 +160,7 @@ Alice は Bob にメッセージを送信する。
 
 ### 4. メッセージの送信（Bob &rarr; Alice 宛）
 
-先ほど Alice から受け取ったメッセージに Bob が返信するとする。
+Alice から受け取ったメッセージに Bob が返信する。
 
 1. Bob は新しいラチェット鍵<sub>0</sub>を作成する。<br />Bob のラチェット鍵<sub>0</sub> &larr; 鍵生成()
 2. Bob は自分のラチェット鍵<sub>0</sub>と Alice のラチェット鍵<sub>0</sub>を非対称ラチェットに入力し、新しい DH 出力<sub>1</sub>を得る。<br />DH 出力<sub>1</sub> &larr; HKDF(Bob のラチェット鍵<sub>0</sub>, Alice のラチェット鍵<sub>0</sub>)

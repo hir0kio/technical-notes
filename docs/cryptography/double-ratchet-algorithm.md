@@ -14,7 +14,7 @@ description: あらかじめ共有した共通鍵を使って安全にメッセ�
 
 ### HKDF(km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>, ......)
 
-1 個以上の[キー マテリアル](https://csrc.nist.gov/glossary/term/keying_material) km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>, ...... を [HMAC-based extract-then-expand key derivation function](https://datatracker.ietf.org/doc/html/rfc5869)（HKDF）に入力して得られる 1 個以上の対称鍵。
+1 個以上の[キー マテリアル](https://csrc.nist.gov/glossary/term/keying_material) km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>, ...... を [HMAC-based extract-and-expand key derivation function](https://datatracker.ietf.org/doc/html/rfc5869)（HKDF）に入力して得られる 1 個以上の対称鍵。
 
 対称鍵 &larr; HKDF(km)<br />
 対称鍵 &larr; HKDF(km<sub>0</sub>, km<sub>1</sub>, km<sub>2</sub>)<br />

@@ -11,14 +11,23 @@ export default defineConfig({
         href: "https://github.com/hir0kio/technical-notes/blob/main/LICENSE",
       },
     ],
+    [
+      "meta",
+      {
+        name: "referrer",
+        content: "no-referrer",
+      },
+    ],
   ],
   lang: "ja",
+  lastUpdated: true,
   themeConfig: {
     editLink: {
       text: "このページを編集",
       pattern:
         "https://github.com/hir0kio/technical-notes/edit/main/docs/:path",
     },
+    lastUpdatedText: "最終更新",
     nav: [
       {
         text: "目次",
@@ -33,6 +42,7 @@ export default defineConfig({
         link: "https://github.com/hir0kio/technical-notes/blob/main/LICENSE",
       },
     ],
+    outlineTitle: "目次",
     sidebar: {
       "/": [
         {

@@ -14,7 +14,7 @@ X3DH key agreement protocol
 
 ## 定義
 
-### ECDH(鍵ペア<sub>0</sub>, 鍵ペア<sub>1</sub>)
+### DH(鍵ペア<sub>0</sub>, 鍵ペア<sub>1</sub>)
 
 鍵ペア<sub>0</sub>の秘密鍵と鍵ペア<sub>1</sub>の公開鍵で[楕円曲線ディフィー・ヘルマン鍵共有](https://ja.wikipedia.org/wiki/楕円曲線ディフィー・ヘルマン鍵共有)を行って得られる秘密の値。
 
@@ -44,7 +44,7 @@ identity key
 
 prekey
 
-前もってサーバに公開しておく鍵。鍵共有後に [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)で最初の[ルート鍵](/cryptography/double-ratchet-algorithm#ルート-チェーン)として使う。
+前もってサーバに公開しておく鍵。鍵共有後に [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)で最初の[ルート鍵](/cryptography/double-ratchet-algorithm#ルート鍵)として使う。
 
 ### 前鍵バンドル
 
@@ -63,7 +63,7 @@ prekey bundle
 
 - **Alice**（イニシエーター）は Bob の[前鍵バンドル](#前鍵バンドル)をサーバから取得し、X3DH 鍵合意プロトコルを使って Bob との間に共通鍵を確立する。ただし、これを行うときに Bob はオフラインである場合がある。
 - **Bob**（レスポンダー）は事前に自分の前鍵バンドルをサーバに登録する。
-- **サーバ**は Alice と Bob の通信を中継する。Alice と Bob が相手に送ったデータを一時的に保持し、対象者がオンラインに復帰するとこのデータを配送する。
+- **サーバ**は、Alice と Bob が相手に送ったデータを一時的に保持し、対象者がオンラインに復帰するとこのデータを配送する。
 
 ### 1. 前鍵バンドルの登録
 
@@ -77,7 +77,12 @@ prekey bundle
 
 次に、Bob は作成した鍵ペアの公開鍵と電子署名をサーバに登録する。
 
-前方秘匿性のため、Bob はサーバに登録した前鍵を定期的に交換し、古い前鍵を削除すべきである。（ただし、交換する前に送られたメッセージの配送が遅延している場合に備えて、古い前鍵をすぐに削除せずにしばらくの間保管しておくこともできる。）また、一時前鍵は鍵共有ごとに消費されるため、サーバは Bob の一時前鍵の残りが少なくなってきたら Bob にそのことを通知し、Bob に新しい一時前鍵を登録させる必要がある。なお、一時前鍵が枯渇した場合、プロトコルは続行できるが前方秘匿性の保証は弱まる。詳細は[#鍵の危殆化](#鍵の危殆化)を参照。
+前方秘匿性のため、Bob はサーバに登録した前鍵を定期的に更新し、古い前鍵を削除する<sup><a href="#ref-1">1</a></sup>。また、一時前鍵は鍵共有ごとに消費されるため、サーバは Bob の一時前鍵の残りが少なくなってきたら Bob にそのことを通知し、Bob に新しい一時前鍵を登録させる必要がある<sup><a href="#ref-2">2</a></sup>。
+
+---
+
+1. <span id="ref-1">ただし、交換する前に送られたメッセージの配送が遅延している場合に備えて、古い前鍵をすぐに削除せずにしばらくの間保持しておくこともできる。</span>
+1. <span id="ref-2">なお、一時前鍵が枯渇した場合、プロトコルは続行できるが前方秘匿性の保証は弱まる。詳細は[#鍵の危殆化](#鍵の危殆化)を参照。</span>
 
 ### 2. メッセージの送信
 
@@ -97,14 +102,14 @@ Alice は、Bob の前鍵バンドルに含まれる前鍵の電子署名を検�
 
 次に、Alice は以下の計算を行う。
 
-DH1 &larr; ECDH(Alice の永続鍵, Bob の前鍵)<br />
-DH2 &larr; ECDH(Alice の一時鍵, Bob の永続鍵)<br />
-DH3 &larr; ECDH(Alice の一時鍵, Bob の前鍵)<br />
+DH1 &larr; DH(Alice の永続鍵, Bob の前鍵)<br />
+DH2 &larr; DH(Alice の一時鍵, Bob の永続鍵)<br />
+DH3 &larr; DH(Alice の一時鍵, Bob の前鍵)<br />
 ms &larr; KDF(DH1 || DH2 || DH3)
 
 Bob の前鍵バンドルに一時前鍵が含まれている場合は、以下の計算を行う。
 
-DH4 &larr; ECDH(Alice の一時鍵, Bob の一時前鍵)<br />
+DH4 &larr; DH(Alice の一時鍵, Bob の一時前鍵)<br />
 ms &larr; KDF(DH1 || DH2 || DH3 || DH4)
 
 DH1 と DH2 は相互認証を提供し、DH3 と DH4 は前方秘匿性を提供する。つまり、Alice（または Bob）の永続鍵の秘密鍵を持たない第三者は DH1（または DH2）を導出できず、使われた前鍵と一時鍵が削除されたあとは DH3 と DH4 を導出できない。
@@ -121,21 +126,21 @@ DH1 と DH2 は相互認証を提供し、DH3 と DH4 は前方秘匿性を提�
 
 Alice のメッセージを受け取った Bob は、以下の計算を行う。
 
-DH1 &larr; ECDH(Bob の前鍵、Alice の永続鍵)<br />
-DH2 &larr; ECDH(Bob の永続鍵, Alice の一時鍵)<br />
-DH3 &larr; ECDH(Bob の前鍵, Alice の一時鍵)<br />
+DH1 &larr; DH(Bob の前鍵、Alice の永続鍵)<br />
+DH2 &larr; DH(Bob の永続鍵, Alice の一時鍵)<br />
+DH3 &larr; DH(Bob の前鍵, Alice の一時鍵)<br />
 ms &larr; KDF(DH1 || DH2 || DH3)
 
 Alice のメッセージに Alice が使った Bob の一時前鍵が指定されている場合は、以下の計算を行い、前方秘匿性のためその一時前鍵を削除する。
 
-DH4 &larr; ECDH(Bob の一時前鍵, Alice の一時鍵)<br />
+DH4 &larr; DH(Bob の一時前鍵, Alice の一時鍵)<br />
 ms &larr; KDF(DH1 || DH2 || DH3 || DH4)
 
 Bob は Alice と同じ共通鍵 ms を得ることができた。Bob は Alice のメッセージを復号し、Alice と同じ共通鍵を得られたことを確認する。
 
 ## 鍵の共有後
 
-共通鍵を確立したあとは、この鍵を使って通常の共通鍵暗号方式で通信することもできるが、前方秘匿性や [post-compromise security](/cryptography/post-compromise-security) を保証する [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)を使うことが推奨される。
+共通鍵を確立したあとは、この鍵を使って通常の対称鍵暗号方式で通信することもできるが、前方秘匿性や [post-compromise security](/cryptography/post-compromise-security) を保証する [Double Ratchet アルゴリズム](/cryptography/double-ratchet-algorithm)を使うことが推奨される。
 
 ## 補足事項
 

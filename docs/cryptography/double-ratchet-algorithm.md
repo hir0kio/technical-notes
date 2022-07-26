@@ -88,7 +88,7 @@ Alice は Bob にメッセージを送信する。
 1. Alice は新しい[ラチェット鍵](#ラチェット鍵)<sub>0</sub>を作成する。<br />
    Alice のラチェット鍵<sub>0</sub> &larr; 鍵生成()
 1. Alice は[ルート鍵](#ルート鍵)<sub>0</sub>、自分の[ラチェット鍵](#ラチェット鍵)<sub>0</sub>、Bob の[前鍵](/cryptography/x3dh-key-agreement-protocol#前鍵)を[非対称ラチェット](#非対称ラチェット)に入力し、新しい[ルート鍵](#ルート鍵)<sub>1</sub>と送信[チェーン鍵](#チェーン鍵)<sub>0, 0</sub>を得る。<br />
-   DH 出力<sub>0</sub> &larr; DH(Alice のラチェット鍵<sub>0</sub>, Bob の前鍵<br />
+   DH 出力<sub>0</sub> &larr; DH(Alice のラチェット鍵<sub>0</sub>, Bob の前鍵)<br />
    ルート鍵<sub>1</sub>, 送信チェーン鍵<sub>0, 0</sub> &larr; HKDF(ルート鍵<sub>0</sub>, DH 出力<sub>0</sub>)
 1. Alice は送信[チェーン鍵](#チェーン鍵)<sub>0, 0</sub>を[対称ラチェット](#対称ラチェット)に入力し、新しい送信[チェーン鍵](#チェーン鍵)<sub>0, 1</sub>と[メッセージ鍵](#メッセージ鍵)<sub>0, 0</sub>を得る。<br />
    送信チェーン鍵<sub>0, 1</sub>, メッセージ鍵<sub>0, 0</sub> &larr; HKDF(送信チェーン鍵<sub>0, 0</sub>)

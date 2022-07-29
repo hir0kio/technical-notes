@@ -53,7 +53,7 @@ export default defineConfig({
               link: "/",
             },
             {
-              text: "Git リポジトリのデータ構造",
+              text: "Git のデータ構造",
               link: "/git",
             },
             {

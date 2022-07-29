@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 export default defineConfig({
   base: "/technical-notes/",
-  description: "暗号理論に関するノートを公開しています。",
+  description: "技術ノートを公開しています。",
   head: [
     [
       "link",
@@ -46,35 +46,39 @@ export default defineConfig({
     sidebar: {
       "/": [
         {
-          text: "暗号理論",
+          text: "記事",
           items: [
             {
               text: "目次",
               link: "/",
             },
             {
+              text: "Git リポジトリのデータ構造",
+              link: "/git",
+            },
+            {
               text: "Post-compromise security",
-              link: "/cryptography/post-compromise-security",
+              link: "/post-compromise-security",
             },
             {
               text: "Puncturable encryption",
-              link: "/cryptography/puncturable-encryption",
+              link: "/puncturable-encryption",
             },
             {
               text: "Signal プロトコル",
-              link: "/cryptography/signal-protocol",
+              link: "/ignal-protocol",
             },
             {
               text: "Double Ratchet アルゴリズム",
-              link: "/cryptography/double-ratchet-algorithm",
+              link: "/double-ratchet-algorithm",
             },
             {
               text: "X3DH 鍵合意プロトコル",
-              link: "/cryptography/x3dh-key-agreement-protocol",
+              link: "/x3dh-key-agreement-protocol",
             },
             {
               text: "落とし戸付き一方向性関数",
-              link: "/cryptography/trapdoor-one-way-function",
+              link: "/trapdoor-one-way-function",
             },
           ],
         },

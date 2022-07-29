@@ -1,6 +1,6 @@
 # Technical Notes
 
-暗号理論に関するノートを公開しています。
+技術ノートを公開しています。
 
 - [目次](https://hir0kio.github.io/technical-notes/)
 - [編集履歴](https://github.com/hir0kio/technical-notes/commits/main)
